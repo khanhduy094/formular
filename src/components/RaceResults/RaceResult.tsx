@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from 'react'
 import { useQuery } from 'react-query'
 import { NavLink, Route, Routes } from 'react-router-dom'
 import locationApi from 'src/apis/location.api'
+import teamApi from 'src/apis/team.api'
 import yearApi from 'src/apis/year.api'
 import { AppContext, FilterType } from 'src/contexts/app.context'
 import { DataResult } from 'src/types/race-result.type'
@@ -18,11 +19,16 @@ export default function RaceResult() {
     queryKey: ['locations'],
     queryFn: locationApi.getLocations
   })
+  const { data: teamData } = useQuery({
+    queryKey: ['team'],
+    queryFn: teamApi.getTeams
+  })
 
   const { result, setFilter } = useContext(AppContext)
   useEffect(() => {
     setFilterResult(result)
   }, [result])
+
   const handleFilter = (name: string, value: keyof FilterType) => {
     setFilter((prev) => ({
       ...prev,
@@ -39,26 +45,43 @@ export default function RaceResult() {
       setFilterResult(newResult)
     } else {
       newResult = result.filter((res) => {
-        return res.driverName.includes(search as string)
+        return res.driverName.toLowerCase().includes(search as string)
       })
       if (newResult.length) {
         setFilterResult(newResult)
       } else {
         newResult = result.filter((res) => {
-          return res.car.includes(search as string)
+          return res.car.toLowerCase().includes(search as string)
         })
         setFilterResult(newResult)
       }
     }
   }
 
+  const handleTeamChange = (team: string) => {
+    if (team) {
+      const newResult = result.filter((res) => {
+        return res.teamId.toString() === team
+      })
+      if (newResult.length) {
+        setFilterResult(newResult)
+      } else {
+        setFilterResult(result)
+      }
+    } else {
+      setFilterResult(result)
+    }
+  }
+
   return (
     <div>
       <h1 className='py-5 text-center text-3xl'> Race Results</h1>
-      {yearData && locationData && (
+      {yearData && locationData && teamData && (
         <FilterResult
           yearData={yearData.data}
           locationData={locationData.data}
+          teamData={teamData?.data}
+          onTeamChange={handleTeamChange}
           onChange={handleFilter}
           onSubmit={handleSearch}
         />

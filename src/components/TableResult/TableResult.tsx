@@ -1,4 +1,3 @@
-import { useMemo } from 'react'
 import { DataResult } from 'src/types/race-result.type'
 
 interface TableProps {
