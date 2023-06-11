@@ -2,8 +2,16 @@ import { RaceResult } from 'src/types/race-result.type'
 
 import http from 'src/utils/http'
 
-const RaceResultApi = {
-  getLocations: () => http.get<RaceResult[]>('/data')
+interface FilterParams {
+  year: string
+  location: string
 }
 
-export default RaceResultApi
+const raceResultApi = {
+  getResults: (params: FilterParams) =>
+    http.get<RaceResult[]>('/data', {
+      params
+    })
+}
+
+export default raceResultApi

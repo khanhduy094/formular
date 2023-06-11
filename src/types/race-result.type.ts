@@ -1,4 +1,4 @@
-interface Data {
+export interface DataResult {
   id_top: string
   driverId: string
   driverName: string
@@ -12,5 +12,5 @@ interface Data {
 export interface RaceResult {
   year: number
   location: string
-  data: Data[]
+  data: DataResult[]
 }

@@ -8,20 +8,19 @@ import Home from './pages/Home'
 import NotFound from './pages/NotFound'
 import TableResult from './components/TableResult/TableResult'
 import ChartResult from './components/ChartResult'
+import MainLayout from './Layouts/MainLayout'
 
 function App() {
   const [count, setCount] = useState(0)
   const elements = useRouteElements()
   return (
-    <div>
+    <MainLayout>
       <Routes>
-        <Route path='/' element={<Home />}>
-          <Route path='/table' element={<TableResult />} />
-          <Route path='/chart' element={<ChartResult />} />
-        </Route>
+        <Route path='/' element={<div>Home</div>} />
+        <Route path='/result/*' index element={<Home />} />
         <Route path='*' element={<NotFound />} />
       </Routes>
-    </div>
+    </MainLayout>
   )
 }
 
