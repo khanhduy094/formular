@@ -9,12 +9,14 @@ export type FilterType = {
 }
 interface AppContextInterface {
   result: DataResult[]
+  setResult: React.Dispatch<React.SetStateAction<DataResult[]>>
   filter: FilterType
   setFilter: React.Dispatch<React.SetStateAction<FilterType>>
 }
 
 const initialState: AppContextInterface = {
   result: [],
+  setResult: () => null,
   filter: {
     year: '2023',
     location: 'bahrain'
@@ -33,10 +35,10 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
       return raceResultApi.getResults(filter)
     },
     onSuccess: (res) => {
-      console.log(res.data[0].data)
+      console.log('RES', res.data[0].data)
       setResult(res.data[0].data)
     }
   })
 
-  return <AppContext.Provider value={{ result, filter, setFilter }}>{children}</AppContext.Provider>
+  return <AppContext.Provider value={{ result, setResult, filter, setFilter }}>{children}</AppContext.Provider>
 }

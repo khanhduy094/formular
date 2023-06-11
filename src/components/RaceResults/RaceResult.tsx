@@ -1,13 +1,15 @@
-import { NavLink, Outlet, Route, Routes } from 'react-router-dom'
-import FilterResult from '../FilterResult'
+import { useContext, useEffect, useState } from 'react'
 import { useQuery } from 'react-query'
-import yearApi from 'src/apis/year.api'
+import { NavLink, Route, Routes } from 'react-router-dom'
 import locationApi from 'src/apis/location.api'
-import TableResult from '../TableResult/TableResult'
-import ChartResult from '../ChartResult'
-import { useContext } from 'react'
+import yearApi from 'src/apis/year.api'
 import { AppContext, FilterType } from 'src/contexts/app.context'
+import { DataResult } from 'src/types/race-result.type'
+import ChartResult from '../ChartResult'
+import FilterResult from '../FilterResult'
+import TableResult from '../TableResult/TableResult'
 export default function RaceResult() {
+  const [filterResult, setFilterResult] = useState<DataResult[]>([])
   const { data: yearData } = useQuery({
     queryKey: ['years'],
     queryFn: yearApi.getYears
@@ -17,23 +19,49 @@ export default function RaceResult() {
     queryFn: locationApi.getLocations
   })
 
-  const { result, filter, setFilter } = useContext(AppContext)
-
+  const { result, setFilter } = useContext(AppContext)
+  useEffect(() => {
+    setFilterResult(result)
+  }, [result])
   const handleFilter = (name: string, value: keyof FilterType) => {
-    console.log('vAlueeee', value)
-
     setFilter((prev) => ({
       ...prev,
       [name]: value
     }))
   }
-  console.log(filter)
+
+  const handleSearch = (search: string | number) => {
+    let newResult: DataResult[] = []
+    if (Number(search)) {
+      newResult = result.filter((res) => {
+        return res.driverId === search
+      })
+      setFilterResult(newResult)
+    } else {
+      newResult = result.filter((res) => {
+        return res.driverName.includes(search as string)
+      })
+      if (newResult.length) {
+        setFilterResult(newResult)
+      } else {
+        newResult = result.filter((res) => {
+          return res.car.includes(search as string)
+        })
+        setFilterResult(newResult)
+      }
+    }
+  }
 
   return (
     <div>
       <h1 className='py-5 text-center text-3xl'> Race Results</h1>
       {yearData && locationData && (
-        <FilterResult yearData={yearData.data} locationData={locationData.data} onChange={handleFilter} />
+        <FilterResult
+          yearData={yearData.data}
+          locationData={locationData.data}
+          onChange={handleFilter}
+          onSubmit={handleSearch}
+        />
       )}
       <div className='container mb-10'>
         <div className='text-center text-sm font-medium text-gray-500 '>
@@ -71,7 +99,7 @@ export default function RaceResult() {
         </div>
       </div>
       <Routes>
-        <Route path='table' element={<TableResult data={result} />} />
+        <Route path='table' element={<TableResult data={filterResult || result} />} />
         <Route path='chart' element={<ChartResult />} />
       </Routes>
     </div>

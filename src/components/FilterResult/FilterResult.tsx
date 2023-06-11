@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { FilterType } from 'src/contexts/app.context'
 import { Location } from 'src/types/location.type'
 import { Year } from 'src/types/year.type'
@@ -6,11 +7,20 @@ interface Props {
   yearData: Year[]
   locationData: Location[]
   onChange: (name: string, value: keyof FilterType) => void
+  onSubmit: (search: string | number) => void
 }
 
-export default function FilterResult({ yearData, locationData, onChange }: Props) {
+export default function FilterResult({ yearData, locationData, onChange, onSubmit }: Props) {
+  const [inputValue, setInputValue] = useState<string>('')
   const handleSelectChange = (name: string) => (e: React.ChangeEvent<HTMLSelectElement>) => {
     onChange && onChange(name, e.target.value as keyof FilterType)
+  }
+
+  const handleSearch = () => {
+    if (inputValue) {
+      onSubmit && onSubmit(inputValue)
+      setInputValue('')
+    }
   }
 
   return (
@@ -79,13 +89,16 @@ export default function FilterResult({ yearData, locationData, onChange }: Props
               </div>
               <input
                 type='search'
+                value={inputValue}
+                onChange={(e) => setInputValue(e.target.value)}
                 id='default-search'
                 className='00 block w-full rounded-lg border border-gray-300 bg-gray-50 p-4 pl-10 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 '
-                placeholder='Search driver, car, team'
+                placeholder='Search name, car, driverId'
                 required
               />
               <button
-                type='submit'
+                type='button'
+                onClick={handleSearch}
                 className='absolute bottom-2.5 right-2.5 rounded-lg bg-blue-700 px-4 py-2 text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 '
               >
                 Search
