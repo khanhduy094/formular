@@ -14,7 +14,7 @@ export default function RaceResult() {
           <ul className='-mb-px flex flex-wrap'>
             <li className='mr-2'>
               <NavLink
-                to='/table'
+                to='/'
                 className={({ isActive }) =>
                   `inline-block rounded-t-lg border-b-2 p-4 ${
                     isActive

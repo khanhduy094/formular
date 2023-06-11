@@ -16,7 +16,7 @@ function App() {
     <div>
       <Routes>
         <Route path='/' element={<Home />}>
-          <Route path='/table' element={<TableResult />} />
+          <Route path='/' element={<TableResult />} />
           <Route path='/chart' element={<ChartResult />} />
         </Route>
         <Route path='*' element={<NotFound />} />
