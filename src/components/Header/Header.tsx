@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom'
+
 export default function Header() {
   return (
     <div className='bg-[#e10600]'>
@@ -8,7 +10,7 @@ export default function Header() {
           </div>
 
           <ul className='text-lg text-white'>
-            <li>Result</li>
+            <Link to='/result'>Result</Link>
           </ul>
         </div>
       </div>

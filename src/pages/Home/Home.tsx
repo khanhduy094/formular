@@ -1,15 +1,12 @@
-import { useEffect } from 'react'
-import Footer from 'src/components/Footer'
-import Header from 'src/components/Header'
+import { Route, Routes } from 'react-router-dom'
+import ChartResult from 'src/components/ChartResult'
 import RaceResult from 'src/components/RaceResults/RaceResult'
+import TableResult from 'src/components/TableResult/TableResult'
 
 export default function Home() {
-  useEffect(() => {}, [])
   return (
     <div>
-      <Header />
       <RaceResult />
-      <Footer />
     </div>
   )
 }
