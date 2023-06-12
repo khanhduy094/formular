@@ -1,5 +1,3 @@
-import { Link } from 'react-router-dom'
-
 export default function Header() {
   return (
     <div className='bg-[#e10600]'>
@@ -9,9 +7,9 @@ export default function Header() {
             <img src='https://www.formula1.com/etc/designs/fom-website/images/f1_logo.svg' alt='' />
           </div>
 
-          {/* <ul className='text-lg text-white'>
-            <Link to='/result'>Result</Link>
-          </ul> */}
+          <ul className='text-lg text-white'>
+            <li>Nguyễn Khánh Duy</li>
+          </ul>
         </div>
       </div>
     </div>
