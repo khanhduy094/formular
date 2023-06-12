@@ -91,7 +91,7 @@ export default function RaceResult() {
           <ul className='-mb-px flex flex-wrap'>
             <li className='mr-2'>
               <NavLink
-                to='/result/table'
+                to='/'
                 className={({ isActive }) =>
                   `inline-block rounded-t-lg border-b-2 p-4 ${
                     isActive
@@ -105,7 +105,7 @@ export default function RaceResult() {
             </li>
             <li className='mr-2'>
               <NavLink
-                to='/result/chart'
+                to='/chart'
                 className={({ isActive }) =>
                   `inline-block rounded-t-lg border-b-2 p-4 ${
                     isActive
@@ -122,8 +122,8 @@ export default function RaceResult() {
         </div>
       </div>
       <Routes>
-        <Route path='table' element={<TableResult data={filterResult || result} />} />
-        <Route path='chart' element={<ChartResult />} />
+        <Route path='/' index element={<TableResult data={filterResult || result} />} />
+        <Route path='chart' element={<ChartResult data={filterResult || result} />} />
       </Routes>
     </div>
   )
