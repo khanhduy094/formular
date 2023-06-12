@@ -16,8 +16,8 @@ function App() {
   return (
     <MainLayout>
       <Routes>
-        <Route path='/' element={<div>Home</div>} />
-        <Route path='/result/*' index element={<Home />} />
+        {/* <Route path='/' element={<div>Home</div>} /> */}
+        <Route path='/*' index element={<Home />} />
         <Route path='*' element={<NotFound />} />
       </Routes>
     </MainLayout>

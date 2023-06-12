@@ -35,7 +35,7 @@ export default function FilterResult({ yearData, locationData, teamData, onChang
 
   return (
     <div className='container mb-8'>
-      <div className='flex items-end gap-7 filter'>
+      <div className='block items-end gap-7 filter md:flex'>
         <div className='flex-1'>
           <label htmlFor='countries' className='mb-2 block font-normal text-gray-900 '>
             Year
@@ -92,7 +92,7 @@ export default function FilterResult({ yearData, locationData, teamData, onChang
           <label htmlFor='default-search' className='sr-only text-sm font-medium text-gray-900 dark:text-white'>
             Search
           </label>
-          <div className='relative'>
+          <div className='relative mt-5 md:mt-0'>
             <div className='pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3'>
               <svg
                 aria-hidden='true'
@@ -115,14 +115,14 @@ export default function FilterResult({ yearData, locationData, teamData, onChang
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
               id='default-search'
-              className=' block w-full rounded-md border border-gray-300 bg-gray-50 p-[10px] pl-10 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 '
+              className=' block w-full rounded-md border border-gray-300 bg-gray-50 p-[10px] pl-10 text-sm text-gray-900  '
               placeholder='Search name, car, driverId'
               required
             />
             <button
               type='button'
               onClick={handleSearch}
-              className='absolute bottom-2.5 right-2.5 rounded-lg bg-blue-700 px-2 py-1  text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 '
+              className='absolute bottom-2 right-2.5 rounded-lg bg-blue-700 px-2 py-1  text-sm font-medium text-white hover:bg-blue-800   '
             >
               Search
             </button>

@@ -9,9 +9,9 @@ export default function Header() {
             <img src='https://www.formula1.com/etc/designs/fom-website/images/f1_logo.svg' alt='' />
           </div>
 
-          <ul className='text-lg text-white'>
+          {/* <ul className='text-lg text-white'>
             <Link to='/result'>Result</Link>
-          </ul>
+          </ul> */}
         </div>
       </div>
     </div>
